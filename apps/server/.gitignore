@@ -1,0 +1,3 @@
+// apps/chat-server/.gitignore
+node_modules
+dist

@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "prettier": "^3.2.5",
-    "turbo": "^2.2.1",
+    "turbo": "^2.2.3",
     "typescript": "^5.4.5"
   },
   "engines": {
@@ -19,5 +19,14 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@nextui-org/avatar": "^2.0.33",
+    "@nextui-org/dropdown": "^2.1.31",
+    "@nextui-org/link": "^2.0.35",
+    "@nextui-org/navbar": "^2.0.37",
+    "add": "^2.0.6",
+    "shadcn": "^2.1.0",
+    "sheet": "^0.2.0"
+  }
 }

@@ -1,0 +1,173 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id              Int           @id @default(autoincrement())
+  name            String 
+  username        String        @unique 
+  hashedPassword  String 
+  phoneNumber     String        @unique
+  age             String?
+  token           String?
+  provider        Provider
+  company         Company[]     @relation(name : "Company")
+}
+
+model Company {
+  id                    Int     @id @default(autoincrement())
+  name                  String  @unique
+  website               String? @default("")
+  totalCapitalRaised    Int     @default(0)
+  country               String
+  address               String  
+  entityType            EntityType
+  fundingStage          RaiseStage?
+  description           String?
+  LegalDocumentsLink    String[]
+  industry              Industry?
+  teamMembers           String?
+  bankInfo              String?
+  pitches              Pitch[]  
+  user                  User    @relation(name: "Company", fields: [userid], references: [id])
+  userid                Int
+  filter                Filter? @relation(fields: [filterid], references: [id])
+  filterid              Int?
+  companyChats          Chat[]    @relation("CompanyChats")
+}
+
+model Investor{
+  id          Int      @id   @default(autoincrement())
+  name        String
+  username    String   @unique
+  hashedPassword    String      
+  phoneNumber String   @unique
+  age         String
+  address     String
+  token       String?
+  investmentStage      RaiseStage?
+  dealflow    String?
+  activeDeals          Int    @default(0)
+  totalInvestments     Int    @default(0)
+  provider    Provider
+  filter      Filter?  @relation(fields: [filterId] , references: [id])
+  filterId    Int?
+  pitch       Pitch[]
+  investorChats   Chat[]      @relation("InvestorChats")
+}
+
+model Pitch {
+  id              Int           @id @default(autoincrement())
+  company         Company       @relation(fields: [companyId], references: [id])
+  companyId       Int           
+  raiseStage      RaiseStage
+  instrumentType  InstrumentType
+  safeType        SafeType
+  description     String
+  createdAt       DateTime
+  status          PitchStatus   @default(Pending)
+  target          Int?
+  VideoLink       String?
+  investor        Investor?     @relation(fields: [investorid], references: [id])
+  investorid      Int?
+  filter          Filter?       @relation(fields: [filterid], references: [id])
+  filterid        Int?          @unique
+  Chat            Chat?
+}
+
+model Filter{
+  id              Int         @id   @default(autoincrement())
+  industry        Industry
+  stage           RaiseStage
+  minOffer        Int
+  investors       Investor[]
+  company         Company[]
+  pitch           Pitch[]
+}
+
+model Chat{
+  id              Int         @id     @default(autoincrement())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  messages        Message[]     
+  company         Company     @relation("CompanyChats" , fields: [companyId] , references: [id])
+  companyId       Int
+  investor        Investor    @relation("InvestorChats" , fields: [investorId] , references: [id])
+  investorId      Int
+  pitch           Pitch       @relation(fields: [pitchId] , references: [id])
+  pitchId         Int         @unique
+  
+  @@unique([companyId , investorId , pitchId])
+}
+
+model Message{
+  id              Int         @id      @default(autoincrement())
+  content         String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  chat            Chat        @relation(fields: [chatId] , references: [id])
+  chatId          Int
+  SenderId        Int
+  SenderType      String      // "founder" or "investor"
+}
+
+enum Industry{
+  AI_or_ML
+  Other
+  Developers_Tools
+  Finance
+  HealthCare
+  Blockchain_or_Cryptocurrency
+  BioTech
+  Robotics
+  Health
+  E_Commerce
+  Security
+}
+
+enum InstrumentType{
+  SAFE
+  Equity
+}
+
+enum SafeType{
+  POST_ROUND
+  PRE_ROUND
+}
+
+enum RaiseStage{
+  Pre_Seed
+  Seed
+  Level_A
+  Level_B
+  Level_C
+}
+
+enum EntityType{
+  Ccorp
+  LLC
+  PBC
+}
+
+enum PitchStatus{
+  Pending
+  Rejected
+  Accepted
+}
+
+enum Provider{
+  Credentials
+  Google
+}
