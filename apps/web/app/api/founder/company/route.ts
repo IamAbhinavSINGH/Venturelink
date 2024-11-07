@@ -1,7 +1,7 @@
 import db from "@repo/db/client";
 import { NextRequest , NextResponse } from "next/server";
 import { z } from "zod"
-import { Industry, EntityType , RaiseStage } from "@prisma/client"
+import { Industry, EntityType } from "@prisma/client"
 
 
 const companyUpdateSchema = z.object({

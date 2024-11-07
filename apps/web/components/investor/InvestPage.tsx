@@ -5,9 +5,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Info, Search, X, Filter, Loader2 } from "lucide-react"
+import {  Search, Filter, Loader2 } from "lucide-react"
 import axios from 'axios'
 import {
   Sheet,
@@ -92,13 +92,6 @@ export default function InvestPage() {
       } else {
         return { ...prev, [category]: [...(current || []), value] }
       }
-    })
-  }
-
-  const removeFilter = (category: keyof FilterType, value: string) => {
-    setFilters(prev => {
-      const current = prev[category] as string[] | undefined
-      return { ...prev, [category]: current?.filter(v => v !== value) }
     })
   }
 
@@ -233,7 +226,7 @@ export default function InvestPage() {
 
             {
               (isLoading) ? 
-                <div className="flex justify-center` items-center h-64">
+                <div className="flex justify-center items-center h-64">
                   <Loader2 className="h-8 w-8 animate-spin" />
                 </div>
               :

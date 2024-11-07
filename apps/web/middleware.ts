@@ -1,5 +1,6 @@
+import db from "@repo/db/client"
 import { withAuth } from "next-auth/middleware"
-import { NextResponse , NextRequest } from "next/server"
+import { NextResponse  } from "next/server"
 
 export default withAuth(
   async function middleware(req) {
@@ -9,7 +10,7 @@ export default withAuth(
     if (reqUrl.startsWith('/api')) {
       if (!token) {
         console.log("No token found, redirecting to home")
-        return NextResponse.redirect(new URL('/auth', req.url))
+        return NextResponse.json({ message : "Not Authorized" } , { status : 401 });
       }
 
       // Proceed with the request
@@ -18,6 +19,23 @@ export default withAuth(
       response.headers.set('x-type' , token.type as string);
       return response
     }
+
+    if(reqUrl.startsWith('/investor') || reqUrl.startsWith('/founder')){
+      if(!token){
+        return NextResponse.redirect(new URL(`${process.env.NEXTAUTH_URL}/auth`));
+      }
+
+      const type = token.type as string;
+
+      if(reqUrl.startsWith('/investor') && type === 'founder'){
+        return NextResponse.redirect(new URL(`${process.env.NEXTAUTH_URL}/auth`));
+      }
+      if(reqUrl.startsWith('/founder') && type === 'investor'){
+        return NextResponse.redirect(new URL(`${process.env.NEXTAUTH_URL}/auth`));
+      }
+      
+    }
+
     return NextResponse.next()
   },
   {
@@ -28,7 +46,7 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: [ '/api/:path*' ]
+  matcher: [ '/api/:path*' , '/investor/:path*' , '/founder/:path*']
 }
 
 // If you need additional validation, you can keep this function

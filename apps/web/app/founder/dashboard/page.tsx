@@ -1,14 +1,18 @@
-import { userHandler } from "@/lib/userHandler";
-import { getServerSession } from "next-auth";
+"use client"
+
 import { redirect } from "next/navigation";
 import DashboardHome from "@/components/founder/DashboardHome";
+import { useSearchParams } from "next/navigation";
 
-export default async function({ searchParams }: { searchParams: { company: string } }){
-    const session = await getServerSession(userHandler);
-    const companyId = Number(searchParams.company);
+export default async function DashboardPage(){
+    const searchParams = useSearchParams();
+    const companyId = searchParams.get('company');
 
-    if(!session || !session.user){
-        redirect('/');
+    console.log('company in searchParams : ' , companyId);
+
+    if(!companyId){
+      console.log('redirected coz no companyId');
+      redirect('/auth');
     }
 
   return (

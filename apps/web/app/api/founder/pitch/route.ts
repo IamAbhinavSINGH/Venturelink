@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
         const allPitches = await db.pitch.findMany({ 
             where: { 
                 companyId: company.id,
-                status : (status as any) 
+                status : (status as 'Pending' | 'Accepted' | 'Rejected') 
             },
             include : {
                 company : true,

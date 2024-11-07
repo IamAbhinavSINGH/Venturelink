@@ -2,12 +2,18 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { LayoutDashboard, Globe, FileText, MessageSquare, Settings, Menu } from 'lucide-react';
+import { LayoutDashboard, Globe, MessageSquare, Settings, Menu } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useSession } from 'next-auth/react';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { name: 'Portfolio', href: '/investor/dashboard', icon: LayoutDashboard },
@@ -80,12 +86,34 @@ export default function InvestorSidebar({
       </ScrollArea>
 
       <div className="flex justify-center p-4 border-t border-gray-800">
-        <div className="flex items-center rounded-lg px-2 w-fit py-2 text-white hover:bg-gray-800 hover:text-white transition-colors">
-          <Avatar className="h-8 w-8 flex-shrink-0">
-            <AvatarFallback className="flex items-center justify-center bg-gray-100 text-black">{ initials }</AvatarFallback>
-          </Avatar>
-          {isOpen && <span className="ml-4 text-lg text-gray-300">{ session?.user.name }</span>}
-        </div>
+          {
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+              <button>
+                <div className="flex items-center rounded-lg px-2 w-fit py-2 text-white hover:bg-gray-800 hover:text-white transition-colors">
+                  <Avatar className="h-8 w-8 flex-shrink-0">
+                    <AvatarFallback className="flex items-center justify-center bg-gray-100 text-black">{ initials }</AvatarFallback>
+                  </Avatar>
+                  {isOpen && <span className="ml-4 text-lg text-gray-300">{ session?.user.name }</span>}
+                </div>
+              </button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align='end' className='mx-4 w-fit bg-stone-800 border-stone-800'>
+                <DropdownMenuItem>
+                  <Link href={`/investor/dashboard`} className="w-full text-white hover:text-gray-900">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={`/investor/dashboard/settings`} className="w-full text-white hover:text-gray-900">Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href='/api/auth/signout' className='w-full text-white hover:text-gray-900'>
+                    Log out
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          }
       </div>
     </div>
   );

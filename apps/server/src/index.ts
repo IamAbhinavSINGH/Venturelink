@@ -2,31 +2,40 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import db from "@repo/db/client";
+import cors from 'cors';
 
 interface Chat{
   id: number;
   createdAt: Date;
   updatedAt: Date;
-  companyId: number;
-  investorId: number;
-  pitchId: number;
+  companyId: number | null;
+  investorId: number | null;
+  pitchId: number | null;
   messages: {
     id: number;
     createdAt: Date;
     updatedAt: Date;
     chatId: number;
     content: string;
-    SenderId: number;
+    SenderId: number | null;
     SenderType: string;
   }[];
 }
 
 const app = express();
+
+app.use(cors({
+  origin : [ "http://localhost:3000" , "https://venturelink.vericaptcha.live" ],
+  credentials : true
+}));
+
 const httpServer = createServer(app);
+
+console.log("chat-server-url from env : " , process.env.CHAT_SERVER_URL);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    origin: ["http://localhost:3000" , "https://venturelink.vericaptcha.live"],
     methods: ['GET', 'POST'],
     credentials: true
   },

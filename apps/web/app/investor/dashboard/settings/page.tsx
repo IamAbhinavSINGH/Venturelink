@@ -1,6 +1,6 @@
 import InvestorSettings from "@/components/investor/InvestorSettings";
 
-export default function(){
+export default function InvestorSettingsPage(){
     return (
         <div>
             <InvestorSettings />

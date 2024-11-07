@@ -32,7 +32,6 @@ export function useChat({ companyId , isFounder , investorId }: UseChatProps) {
   const activeChatId = useRef<number | null>(null);
 
   useEffect(() => {
-    // Initialize socket connection
     const socket = io(process.env.NEXT_PUBLIC_CHAT_SERVER_URL || 'http://localhost:3001', {
       withCredentials: true,
       reconnectionAttempts: 5,
@@ -42,22 +41,23 @@ export function useChat({ companyId , isFounder , investorId }: UseChatProps) {
     socketRef.current = socket;
 
     socket.on('connect', () => {
-      setIsConnected(true);
-      setError(null);
-      
-      // Join chat room
+      console.log('investorId int useChat hook : ' , investorId);
+        if(Number(investorId) > 0 && Number(companyId) > 0){
+            setIsConnected(true);
+            setError(null);
 
-      console.log(`trying to connect to chat with data : ` , {
-        companyId,
-        isFounder,
-        investorId
-      });
+            console.log(`trying to connect to chat with data : ` , {
+              companyId,
+              isFounder,
+              investorId
+            });
 
-      socket.emit('joinChat', {
-        companyId,
-        isFounder,
-        investorId
-      });
+            socket.emit('joinChat', {
+              companyId,
+              isFounder,
+              investorId
+            });
+        }
     });
 
     socket.on('chatJoined', ({ chatId, messages }) => {

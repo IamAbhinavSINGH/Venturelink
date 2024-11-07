@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Search, ArrowUpDown, Download } from "lucide-react"
+import { Search, ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -73,16 +73,11 @@ export function Portfolio() {
       <Tabs defaultValue="dashboard" className="w-full">
         <TabsList>
             <TabsTrigger value="dashboard" onClick={() => { setCurrentTab("Portfolio") }}>Dashboard</TabsTrigger>
-            <TabsTrigger value="activity" onClick={() => { setCurrentTab("Activity") }}>Activity</TabsTrigger>
             <TabsTrigger value="insights" onClick={() => { setCurrentTab("Insights") }}>Insights</TabsTrigger>
         </TabsList>
 
         <TabsContent value="dashboard">
           <Dashboard />
-        </TabsContent>
-
-        <TabsContent value="activity">
-          <div className="py-6">Activity content coming soon...</div>
         </TabsContent>
 
         <TabsContent value="insights">

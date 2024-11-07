@@ -1,7 +1,7 @@
 import { Portfolio } from "@/components/investor/Portfolio";
 
 
-export default function(){
+export default function DashboardPage() {
     return (
         <div>
             <Portfolio />

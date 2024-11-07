@@ -1,5 +1,6 @@
 import db from "@repo/db/client";
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client"
 import { z } from 'zod';
 
 const updateInvestorSchema = z.object({
@@ -70,7 +71,7 @@ export async function GET(req: NextRequest) {
 
     const validatedFilters = filterSchema.parse(filterData);
 
-    const filters: any = {
+    const filters: Prisma.InvestorWhereInput = {
       ...(validatedFilters.name && { name: { contains: validatedFilters.name, mode: 'insensitive' } }),
       ...(validatedFilters.investmentStage && validatedFilters.investmentStage.length > 0 && { 
         investmentStage: { in: validatedFilters.investmentStage } 

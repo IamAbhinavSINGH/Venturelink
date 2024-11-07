@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -75,7 +74,7 @@ export function SignInForm({ role }: SignInFormProps) {
     setIsLoading(true);
     setErrorMessage("");
 
-    let data = {
+    const data = {
       name: values.name,
       username: values.email,  
       password: values.password,
@@ -243,7 +242,7 @@ export function SignInForm({ role }: SignInFormProps) {
         <div>
           <p className="text-sm text-gray-500">
             Already have an account?{" "}
-            <a href={`/auth/login?role=${role}`} className="text-blue-600 hover:underline">
+            <a href={`/login?role=${role}`} className="text-blue-600 hover:underline">
               login
             </a>
           </p>

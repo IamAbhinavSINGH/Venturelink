@@ -76,7 +76,7 @@ export default function CompanySelection() {
         if (res && res.status === 200) {
             router.push(`/founder/dashboard?company=${res.data.companyId}`);
         }
-    } catch (err: any) {
+    } catch (err : any) {
         if (err.response && err.response.data) {
             setError(err.response.data.message);
         } else {
@@ -224,18 +224,18 @@ export default function CompanySelection() {
             {companies.length > 0 ? companies.map((company) => (
               <Card 
                 key={company.id} 
-                className="cursor-pointer border-stone-400 hover:bg-gray-200 w-full max-w-[500px] sm:w-[90%] md:w-[80%] lg:w-[500px]" 
+                className="cursor-pointer border-stone-400 hover:bg-gray-300 w-full max-w-[500px] sm:w-[90%] md:w-[80%] lg:w-[500px]" 
                 onClick={() => handleSelectCompany(Number(company.id))}
               >
-                <CardContent className="flex items-center justify-between p-4">
-                  <div className="flex items-center space-x-2">
+                <CardContent className="flex items-center justify-between p-2">
+                  <div className="flex items-center justify-center space-x-2">
                     <Avatar className="w-10 h-10 bg-gray-400 items-center justify-center">
                       <AvatarFallback className="text-lg font-semibold">{company.name[0]}</AvatarFallback>
                     </Avatar>
                     <div className="pl-4">
-                      <h2 className="text-xl font-semibold">{company.name}</h2>
-                      <p className="text-gray-500 flex justify-start">Admin</p>
-                      <p className="text-gray-500 flex justify-start">{company.website}</p>
+                      <h2 className="text-lg flex justify-start font-semibold">{company.name}</h2>
+                      <p className="text-gray-500 text-sm flex justify-start">Admin</p>
+                      <p className="text-gray-500 text-sm flex justify-start">{company.website}</p>
                     </div>
                   </div>
                   <ChevronRight className="text-gray-900" />

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import DashboardSidebar from '@/components/founder/DashbaordSidebar';
-import { useSearchParams , usePathname } from 'next/navigation';
+import { useSearchParams , usePathname, redirect } from 'next/navigation';
 
 export default function DashboardLayout({
   children,
@@ -14,6 +14,10 @@ export default function DashboardLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const searchParams = useSearchParams();
   const companyId = searchParams.get('company') as string;
+
+  if(!companyId){
+    redirect('/founder/get-started');
+  }
 
   useEffect(() => {
     if(pathName){
@@ -31,7 +35,7 @@ export default function DashboardLayout({
         isOpen={isSidebarOpen}
         setIsOpen={setIsSidebarOpen}
       />
-      <main className={`flex-1 overflow-y-auto p-20 transition-all duration-200 ease-in-out ${
+      <main className={`flex-1 overflow-y-auto p-16 transition-all duration-200 ease-in-out ${
         isSidebarOpen ? 'ml-64' : 'ml-16'
       }`}>
         {children}

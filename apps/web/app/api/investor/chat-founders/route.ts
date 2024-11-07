@@ -31,9 +31,12 @@ export async function GET(req : NextRequest) {
       }
     })
 
-    const companies = acceptedPitches.map(pitch => pitch.company);
+    const uniqueCompanies = Array.from(
+      new Map(acceptedPitches?.map(pitch => [pitch.company.id, pitch.company])).values()
+    );
 
-    return NextResponse.json({ companies })
+    return NextResponse.json({ companies : uniqueCompanies });
+
   } catch (error) {
     console.error('Error fetching chat-eligible investors:', error)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })

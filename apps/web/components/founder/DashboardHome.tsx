@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -12,7 +11,7 @@ import { useRouter } from 'next/navigation'
 export default function DashboardHome() {
   const searchParams = useSearchParams()
   const companyId = searchParams.get('company')
-  const [raisedAmount, setRaisedAmount] = useState(527000)
+  const raisedAmount = 527000
   const totalAmount = 2000000
 
   const session = useSession();

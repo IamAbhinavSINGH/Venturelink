@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Loader2, AlertCircle, CheckCircle2 } from "lucide-react"
+import { Loader2, AlertCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import axios from 'axios'
 import { useSearchParams } from "next/navigation"
@@ -38,7 +38,7 @@ export function AcceptedPitches() {
 
   useEffect(() => {
     fetchAcceptedPitches()
-  }, [])
+  })
 
   const fetchAcceptedPitches = async () => {
     try {

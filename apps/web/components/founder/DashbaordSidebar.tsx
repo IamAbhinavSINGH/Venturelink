@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Menu, Home, PieChart, Settings, Search, MessageCircleIcon } from 'lucide-react';
+import { Menu, Home, PieChart, Settings, Globe, MessageSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,11 +10,18 @@ import { cn } from "@/lib/utils";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link'
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { name: 'Home', href: '/founder/dashboard', icon: Home },
-  { name: 'Explore', href: '/founder/dashboard/explore', icon: Search },
-  { name : 'Messages' , href : '/founder/dashboard/messages' , icon : MessageCircleIcon},
+  { name: 'Explore', href: '/founder/dashboard/explore', icon: Globe },
+  { name : 'Messages' , href : '/founder/dashboard/messages' , icon : MessageSquare},
   { name: 'Trends', href: '/founder/dashboard/trends', icon: PieChart },
   { name: 'Settings', href: '/founder/dashboard/settings', icon: Settings },
 ];
@@ -111,7 +118,7 @@ export default function DashboardSidebar({
             {isOpen ? (
               <div className="flex items-center space-x-3 p-4 space-y-3 border-b border-gray-700 ">
                 <Avatar className="w-8 h-8">
-                  <AvatarFallback className="bg-cyan-500 text-gray-100">
+                  <AvatarFallback className="bg-orange-600 text-gray-100">
                     {company?.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
@@ -123,7 +130,7 @@ export default function DashboardSidebar({
             ) : (
               <div className="flex items-center space-x-3 space-y-3 p-4 border-b border-gray-800">
                 <Avatar className="w-8 h-8">
-                  <AvatarFallback className="bg-cyan-500 text-gray-100">
+                  <AvatarFallback className="bg-orange-600 text-gray-100">
                     {company?.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
@@ -174,12 +181,40 @@ export default function DashboardSidebar({
       </ScrollArea>
 
       <div className=" flex justify-center p-4 border-t border-gray-800">
-        <div className="flex items-center rounded-lg px-2 w-fit py-2 text-white hover:bg-gray-800 hover:text-white transition-colors">
-          <Avatar className="h-8 w-8 flex-shrink-0">
-            <AvatarFallback className="flex items-center justify-center bg-gray-100 text-black">{initials}</AvatarFallback>
-          </Avatar>
-          {isOpen && <span className="ml-4 text-lg text-gray-300">{session?.user.name}</span>}
-        </div>
+        {
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+             <button>
+              <div className="flex items-center rounded-lg px-2 w-fit py-2 text-white hover:bg-gray-800 hover:text-white transition-colors">
+                  <Avatar className="h-8 w-8 flex-shrink-0">
+                    <AvatarFallback className="flex items-center justify-center bg-gray-100 text-black">{initials}</AvatarFallback>
+                  </Avatar>
+                  {isOpen && <span className="ml-4 text-lg text-gray-300">{session?.user.name}</span>}
+              </div>
+             </button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align='end' className='mx-4 w-fit bg-stone-800 border-stone-800'>
+                {
+                  company ? 
+                      <div>
+                        <DropdownMenuItem>
+                          <Link href={`/founder/dashboard?company=${company.id}`} className="w-full text-white hover:text-gray-900">Profile</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Link href={`/founder/dashboard/settings?company=${company.id}`} className="w-full text-white hover:text-gray-900">Settings</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Link href='/api/auth/signout' className='w-full text-white hover:text-gray-900'>
+                            Log out
+                          </Link>
+                      </DropdownMenuItem>
+                      </div>
+                   : null
+                }
+            </DropdownMenuContent>
+          </DropdownMenu>
+        }
       </div>
     </div>
   );

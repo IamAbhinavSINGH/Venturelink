@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod';
-import { Industry, EntityType, RaiseStage } from "@prisma/client";
+import { Industry, EntityType, RaiseStage, Prisma } from "@prisma/client";
 import db from "@repo/db/client";
 
 const filterSchema = z.object({
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
 
         const validateFilters = filterSchema.parse(filterData);
         
-        const filters: any = {
+        const filters: Prisma.CompanyWhereInput = {
             ...(validateFilters.name && { 
                 name: { contains: validateFilters.name, mode: 'insensitive' } 
             }),

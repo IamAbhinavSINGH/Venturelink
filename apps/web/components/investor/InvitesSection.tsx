@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input"
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
+import Link from 'next/link';
 
 interface Pitch {
   id: number
@@ -134,7 +135,7 @@ export function InvitesSection() {
                     <p className="text-sm">{pitch.description}</p>
                   </div>
                 </CardContent>
-                <CardFooter className="bg-muted/50 p-6">
+                <CardFooter className="bg-muted/50 px-6 py-4">
                   {pitch.status === 'Pending' && (
                     <div className="flex justify-end space-x-2 w-full">
                       <Button variant="outline" onClick={() => handleStatusChange(pitch.id, 'Rejected')}>
@@ -145,11 +146,23 @@ export function InvitesSection() {
                       </Button>
                     </div>
                   )}
-                  {pitch.status !== 'Pending' && (
-                    <p className="text-sm text-muted-foreground">
-                      {pitch.status} on {new Date(pitch.createdAt).toLocaleDateString()}
-                    </p>
-                  )}
+                  {
+                    pitch.status === 'Accepted' ? 
+                        <div className='flex justify-end space-x-2 w-full'>
+                          <Link 
+                            href={'/investor/dashboard/messages'}  
+                          >
+                            <Button className='w-full'>
+                              View chat
+                            </Button>
+                          </Link>
+                        </div>
+                      : pitch.status === 'Rejected' ? 
+                      <p className="text-sm text-muted-foreground">
+                          {pitch.status} on {new Date(pitch.createdAt).toLocaleDateString()}
+                      </p>
+                     : null
+                  }
                 </CardFooter>
               </Card>
             ))

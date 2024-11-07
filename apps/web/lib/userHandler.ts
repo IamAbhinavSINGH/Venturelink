@@ -1,6 +1,6 @@
 import { Session, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import db from '@repo/db/client';
 import { JWT } from 'next-auth/jwt';
 import jwt from 'jsonwebtoken'

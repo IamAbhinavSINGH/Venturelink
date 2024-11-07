@@ -1,7 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InvestPage  from "@/components/investor/InvestPage";
 
-export default function() {
+export default function Invest() {
   return (
         <div className="transition-all duration-200 ease-in-out">
             <InvestPage />

@@ -9,7 +9,6 @@ import {
   Users,
   FileText,
   BanknoteIcon,
-  Settings,
 } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { CompanyDetailsForm } from "@/components/founder/CompanyDetailsForm"

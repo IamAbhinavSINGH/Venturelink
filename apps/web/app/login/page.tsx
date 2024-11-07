@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { LoginForm } from "../../components/landing/LoginForm"
 
-export default function signin() {
+export default function Signin() {
   const searchParams = useSearchParams()
   const role = searchParams.get('role') as 'investor' | 'founder' || 'founder'
 

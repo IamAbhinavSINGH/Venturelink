@@ -1,13 +1,12 @@
-// apps/web/app/founder/dashboard/messages/page.tsx
 "use client"
 
 import { useEffect, useState } from 'react'
-import ChatLayout from '@/components/chat/ChatLayout'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { ChatUser } from '@/types/chat'
 import { redirect, useSearchParams } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
+import ChatBotUI from '@/components/chat/ChatBotUI'
 
 export default function FounderMessagesPage() {
   const { data: session } = useSession()
@@ -51,11 +50,10 @@ export default function FounderMessagesPage() {
   }
 
   return (
-    <ChatLayout
+    <ChatBotUI
       users={investors}
-      currentUserId={session.user.id}
-      userType="FOUNDER"
-      companyId={companyId}
+      isFounder={true}
+      currentId={companyId}
     />
   )
 }

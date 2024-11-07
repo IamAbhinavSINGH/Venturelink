@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import ChatLayout from '@/components/chat/ChatLayout'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { ChatUser } from '@/types/chat'
 import { Loader2 } from 'lucide-react'
+import ChatBotUI from '@/components/chat/ChatBotUI'
 
 export default function InvestorMessagesPage() {
   const { data: session } = useSession()
@@ -40,10 +40,10 @@ export default function InvestorMessagesPage() {
   }
 
   return (
-    <ChatLayout
+    <ChatBotUI 
       users={companies}
-      currentUserId={session.user.id}
-      userType="INVESTOR"
+      isFounder={false}
+      currentId={session.user.id}
     />
   )
 }

@@ -23,7 +23,7 @@ export async function GET(req : NextRequest){
         if(!investor) return NextResponse.json({ message : "Could not find any investor with the given username" } , { status : 404 });
 
         const allPitches = await db.pitch.findMany({ 
-            where : { investorid : investor.id , status : status as any},
+            where : { investorid : investor.id , status : status as 'Pending' | 'Accepted' | 'Rejected'},
             include : { company : true }
         });
 

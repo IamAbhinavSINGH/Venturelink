@@ -1,11 +1,9 @@
-import LandingPage from "@/components/landing/LandingPage";
-import AppBar from "@/components/landing/AppBar";
+import LandingPage from "@/components/landing/NewLandingPage"
 
 export default async function Home() {
 
   return (
     <div>
-      <AppBar />
       <LandingPage />
     </div>
   );
