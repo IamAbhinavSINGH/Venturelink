@@ -38,7 +38,7 @@ export function AcceptedPitches() {
 
   useEffect(() => {
     fetchAcceptedPitches()
-  })
+  }, []);
 
   const fetchAcceptedPitches = async () => {
     try {
