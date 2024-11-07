@@ -120,7 +120,13 @@ export function InvitesSection() {
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <h3 className="font-semibold text-lg">{pitch.company.name}</h3>
-                      <p className="text-sm text-muted-foreground">{pitch.company.industry.replaceAll('_' , ' ')}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {
+                          pitch.company.industry ? (
+                            `${pitch.company.industry.replaceAll('_' , ' ')}`
+                          ) : null
+                        }
+                      </p>
                     </div>
                       <Badge variant={(pitch.status === 'Pending') ? 'outline' : 'default'} 
                         className={(pitch.status === 'Accepted') ? 'bg-green-100 text-green-800' 
@@ -129,8 +135,17 @@ export function InvitesSection() {
                       </Badge>
                   </div>
                   <div className="space-y-2">
-                    <p><strong>Stage:</strong> {pitch.raiseStage.replaceAll('_' , ' ')}</p>
-                    <p><strong>Instrument:</strong> {pitch.instrumentType.replaceAll('_' , ' ')} ({pitch.safeType.replaceAll('_ ' , ' ')})</p>
+                    <p><strong>Stage:</strong> {
+                      pitch.raiseStage ? (
+                        `${pitch.raiseStage.replaceAll('_' , ' ')}`
+                      ) : null
+                    }</p>
+                    <p><strong>Instrument:</strong>{
+                        pitch.instrumentType && pitch.safeType ? (
+                        `${pitch.instrumentType.replaceAll('_' , ' ')} ${pitch.safeType.replaceAll('_ ' , ' ')}`
+                        ) : null
+                      }
+                     </p>
                     <p><strong>Target:</strong> ${pitch.target.toLocaleString()}</p>
                     <p className="text-sm">{pitch.description}</p>
                   </div>

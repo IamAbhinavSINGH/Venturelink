@@ -1,6 +1,6 @@
 import db from "@repo/db/client";
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client"
+import { Prisma} from "@prisma/client"
 import { z } from 'zod';
 
 const updateInvestorSchema = z.object({
@@ -8,6 +8,7 @@ const updateInvestorSchema = z.object({
   phoneNumber: z.string().optional(),
   age: z.string().optional(),
   address: z.string().optional(),
+  dealflow : z.enum(["High" , "Medium" , "Low"]),
   investmentStage: z.enum(["Pre_Seed", "Seed", "Level_A", "Level_B", "Level_C"]).optional(),
 });
 

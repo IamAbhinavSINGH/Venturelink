@@ -29,8 +29,10 @@ type NewCompanyDetails = {
   country: string;
   entityType: string;
   bankInfo: string;
+  fundingStage : 'Pre_Seed' | 'Seed' | 'Level_A' | 'Level_B' | 'Level_B' | 'Level_C'
 };
 
+const fundingStage = [ 'Pre_Seed' , 'Seed' , 'Level_A' , 'Level_B' , 'Level_B' , 'Level_C' ];
 const entityTypes = ["Ccorp", "LLC", "PBC"];
 const countries = ["United States", "Canada", "United Kingdom", "Australia", "India"]; // Add more countries or use a library for a complete list.
 
@@ -48,7 +50,8 @@ export default function CompanySelection() {
     country: '',
     entityType: '',
     bankInfo: '',
-    teamMembers: ''
+    teamMembers: '',
+    fundingStage : 'Seed'
   });
 
   const fetchCompanies = async () => {
@@ -164,6 +167,25 @@ export default function CompanySelection() {
                   required
                 />
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="fundingStage" className="flex items-start">Select funding stage</Label>
+                <select 
+                  id="fundingStafe"
+                  value={newCompany.fundingStage}
+                  onChange={(e) => setNewCompany({ ...newCompany, fundingStage: e.target.value as any})}
+                  required
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Select an entity type</option>
+                  {fundingStage.map((type) => (
+                    <option key={type} value={type}>
+                      {type.replaceAll('_' , ' ')}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="country" className="flex items-start">Country</Label>
                 <select 

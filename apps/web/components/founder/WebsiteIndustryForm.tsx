@@ -135,13 +135,13 @@ export function WebsiteIndustryForm() {
                     <SelectValue placeholder="Select an industry" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  {Object.values(Industry).map((industry) => (
-                    <SelectItem key={industry} value={industry}>
-                      {industry.replace(/_/g, " ")}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
+                  <SelectContent>
+                    {Object.values(Industry).map((industry) => (
+                      <SelectItem key={industry} value={industry}>
+                        {industry.replaceAll('_', " ")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
               </Select>
               <FormDescription>Select the primary industry of your company</FormDescription>
               <FormMessage />

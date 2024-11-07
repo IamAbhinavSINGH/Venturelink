@@ -269,15 +269,31 @@ function StartupCard({ startup }: StartupCardProps) {
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold truncate">{startup.name}</h3>
             <div className="text-sm text-muted-foreground mt-1">
-               {startup.entityType.replaceAll('_' , ' ')} • {startup.country}
+               {
+                startup.entityType ? (
+                  `${startup.entityType.replaceAll('_' , ' ')} • ${startup.country}`
+                ) : null
+               }
             </div>
           </div>
-          <Badge variant="outline">{startup.industry.replaceAll('_' , ' ')}</Badge>
+          { 
+            startup.industry ? (
+              <Badge variant="outline">{startup.industry.replaceAll('_' , ' ')}</Badge>
+            ) : null
+          }
         </div>
         <p className="mt-3 text-sm">{startup.description}</p>
         <div className="mt-4 flex justify-between items-center text-sm text-muted-foreground">
-          <span>Valuation: ${startup.totalCapitalRaised.toLocaleString()}</span>
-          <span>{startup.fundingStage.replaceAll('_' , ' ')}</span>
+          {
+            startup.totalCapitalRaised ? (
+              <span>Valuation: ${startup.totalCapitalRaised.toLocaleString()}</span>
+            ) : null
+          }
+          {
+            startup.fundingStage ? (
+              <span>{startup.fundingStage.replaceAll('_' , ' ')}</span>
+            ) : null
+          }
         </div>
         <Button className="w-full mt-4">View Details</Button>
       </CardContent>
