@@ -31,8 +31,8 @@ This is a monorepo project built with Turborepo, containing a Next.js web applic
 ### Root Directory
 ```env
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="very big next secret"
-JWT_SECRET="JWT SECRET"
+NEXTAUTH_SECRET="next auth secret"
+JWT_SECRET="jwt secret"
 NEXT_PUBLIC_CHAT_SERVER_URL="http://localhost:3001"
 VULTR_API_KEY="your-vultr-api-key"
 ```
