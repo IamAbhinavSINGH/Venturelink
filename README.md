@@ -1,81 +1,136 @@
-# Turborepo starter
+# VentureLink
 
-This is an official starter Turborepo.
+VentureLink is a modern fund management platform that connects investors and founders, providing tools for efficient fund operations, investor relations, and portfolio management.
 
-## Using this example
+## Project Overview
 
-Run the following command:
+This is a monorepo project built with Turborepo, containing a Next.js web application and a backend server. The platform features a modern tech stack with real-time chat capabilities, AI-powered assistance.
 
-```sh
-npx create-turbo@latest
+## Features
+
+- 🔐 Secure authentication for both investors and founders
+- 💬 Real-time chat system with AI chatbot integration
+- 🤝 Investor relationship management tools
+- 📈 Portfolio tracking and analytics
+- 🎯 Deal flow management
+- 🔄 Real-time updates and notifications
+- 🎨 Modern, responsive UI with light mode support
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS, shadcn/ui hosted on Vultr
+- **Backend**: Node.js, Express hosted on Vultr
+- **Database**: PostgreSQL with Prisma ORM provided by Vultr
+- **Real-time**: WebSocket
+- **AI Integration**: Vultr API for chatbot functionality
+- **Authentication**: NextAuth.js
+- **Build Tool**: Turborepo
+
+## Environment Variables
+
+### Root Directory
+```env
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="very big next secret"
+JWT_SECRET="JWT SECRET"
+NEXT_PUBLIC_CHAT_SERVER_URL="http://localhost:3001"
+VULTR_API_KEY="your-vultr-api-key"
 ```
 
-## What's inside?
+### Database Configuration
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```env
+ DATABASE_URL="your-postgres-connection-string"
 ```
 
-### Develop
 
-To develop all apps and packages, run the following command:
+## Getting Started
 
-```
-cd my-turborepo
-pnpm dev
-```
+1. Clone the repository:
 
-### Remote Caching
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```shellscript
+git clone https://github.com/your-username/venturelink.git
+cd venturelink
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+2. Install dependencies:
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
 
+```shellscript
+ npm install
 ```
-npx turbo link
+
+3. Set up environment variables:
+
+- Copy `.env.example` to `.env` in the `apps/web` directory
+- Copy `.env.example` to `.env` in the `packages/db` directory
+- Fill in the required environment variables
+
+
+4. Set up the database:
+
+
+```shellscript
+    cd packages/db
+    npm prisma migrate dev
+    npm prisma generate 
 ```
 
-## Useful Links
+5. Start the development servers:
 
-Learn more about the power of Turborepo:
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+```shellscript
+ npm run dev
+```
+
+## Development
+
+- Web app runs on: `http://localhost:3000`
+- Server runs on: `http://localhost:3001`
+
+
+### Available Scripts
+
+- `npm dev` - Start all applications in development mode
+- `npm build` - Build all applications
+- `npm lint` - Run linting
+
+
+## Deployment
+
+1. Build the project:
+
+
+```shellscript
+ npm build
+```
+
+2. For production deployment:
+
+- Start a compute on Vultr
+- Clone the codebase on the server
+- Configure environment variables in your deployment platforms
+- Start the server after building `npm run build`
+
+
+### Production Considerations
+
+- Ensure all environment variables are properly set in your production environment
+- Set up proper security headers and CORS configurations
+- Configure database connection pools and caching strategies
+- Set up monitoring and logging solutions
+
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
